@@ -21,6 +21,7 @@ func test(w http.ResponseWriter,r *http.Request) {
 		}
 	}
 	proxy := goproxy.NewSingleHostReverseProxy(url)
+	proxy.CacheData = true
 	proxy.ServeHTTP(w, r)
 
 
