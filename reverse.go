@@ -511,34 +511,6 @@ func (p *ReverseProxy) copyCache(rw io.Writer, url string) (int64, error){
 		if !Data[url].Finished && !Data[url].Connect {
 			return written, errors.New("date error, please request again")
 		}
-		//
-		//nr, rerr := src.Read(buf)
-		//if rerr != nil && rerr != io.EOF && rerr != context.Canceled {
-		//	log.Printf("httputil: ReverseProxy read error during body copy: %v", rerr)
-		//}
-		//Data[url].Data = append(Data[url].Data, buf[:nr]...)
-		//if nr > 0 {
-		//	nw, werr := dst.Write(buf[:nr])
-		//	if nw > 0 {
-		//		written += int64(nw)
-		//	}
-		//	if werr != nil && !p.ShareConnect {
-		//		// 忽略这个错误
-		//		log.Println("disconnect......")
-		//		return written, werr
-		//	}
-		//	if nr != nw && !p.ShareConnect {
-		//		log.Println("data error")
-		//		return written, io.ErrShortWrite
-		//	}
-		//}
-		//if rerr != nil {
-		//	if rerr == io.EOF {
-		//		Data[url].Finished = true
-		//		rerr = nil
-		//	}
-		//	return written, rerr
-		//}
 	}
 	return written, nil
 }
@@ -600,6 +572,7 @@ func (p *ReverseProxy) appendBuffer(dst io.Writer, src io.Reader, buf []byte, ur
 		if rerr != nil {
 			if rerr == io.EOF {
 				Data[url].Finished = true
+
 				rerr = nil
 			}
 			return written, rerr

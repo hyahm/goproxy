@@ -1,6 +1,8 @@
 package goproxy
 
 import (
+	"crypto/md5"
+	"fmt"
 	"net/http"
 	"strings"
 )
@@ -33,4 +35,11 @@ func singleJoiningSlash(a, b string) string {
 		return a + "/" + b
 	}
 	return a + b
+}
+
+
+func Md5 (data []byte) string {
+	m := md5.New()
+	m.Write(data)
+	return fmt.Sprintf("%x", m.Sum(nil))
 }
